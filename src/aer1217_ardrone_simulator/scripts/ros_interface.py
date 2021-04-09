@@ -51,37 +51,19 @@ class ROSControllerNode(object):
         self.pub_land = rospy.Publisher('/ardrone/land', Empty, queue_size=1)
 
     def _traj_callback(self, msg):
-<<<<<<< HEAD
-        # callback function for saving desired position and orientation from planner node
-=======
->>>>>>> b99e4d7081b7147fd781b7057c19cb23292b5bdb
         self.x_des = msg.linear.x
         self.y_des = msg.linear.y
         self.z_des = msg.linear.z
         self.yaw_des = msg.angular.z
-        
-        print(x_des, y_des, z_des)
 
 
     def _vicon_callback(self, msg):
-<<<<<<< HEAD
-        # callback for getting the current drone state from the vicon system
-        self._vicon_msg = msg
-        
-    def get_pos(self):
-        # get current drone position
-        return self._vicon_msg.transform.translation
-    
-    def get_orient(self):
-        # get current orientation and convert to euler 
-=======
         self._vicon_msg = msg
         
     def get_pos(self):
         return self._vicon_msg.transform.translation
     
     def get_orient(self):
->>>>>>> b99e4d7081b7147fd781b7057c19cb23292b5bdb
         orient_qx = self._vicon_msg.transform.rotation.x
         orient_qy = self._vicon_msg.transform.rotation.y
         orient_qz = self._vicon_msg.transform.rotation.z
@@ -90,38 +72,20 @@ class ROSControllerNode(object):
         return euler_from_quaternion(orient_q)
     
     def get_time(self):
-<<<<<<< HEAD
-        # get current time
-=======
->>>>>>> b99e4d7081b7147fd781b7057c19cb23292b5bdb
         return self._vicon_msg.header.stamp.nsecs
     
     def land(self):
-        # publish landing command
         self.pub_land.publish()
 
     def set_vel(self, traj):
-        # publish trajectory
         self.pub_traj.publish(traj)
 
 if __name__ == '__main__':
     # write code to create ROSControllerNode
-<<<<<<< HEAD
-    
-    # initiate node
-    rospy.init_node("ros_interface", disable_signals=True)
-    
-    # initiate controller and ardrone objects
-    positionCtrl = PositionController()
-    ardrone = ROSControllerNode()
-    # ardrone.time_stamp = ardrone.get_time()
-    
-=======
     rospy.init_node("ros_interface", disable_signals=True)
     positionCtrl = PositionController()
     ardrone = ROSControllerNode()
     # ardrone.time_stamp = ardrone.get_time()
->>>>>>> b99e4d7081b7147fd781b7057c19cb23292b5bdb
     #first test
     # x_des = 4
     # y_des = 4
@@ -135,16 +99,9 @@ if __name__ == '__main__':
             currentPosition = ardrone.get_pos()
             currentOrientation = ardrone.get_orient()
             #compute desired pose
-<<<<<<< HEAD
-            dt = max((ardrone.get_time() - ardrone.time_stamp)/pow(10,9), 0.0001) # time duration
-            ardrone.time_stamp = ardrone.get_time() 
-            x_des, y_des, z_des, yaw_des = ardrone.x_des, ardrone.y_des, ardrone.z_des, ardrone.yaw_des
-            # get trajectory command
-=======
             dt = max((ardrone.get_time() - ardrone.time_stamp)/pow(10,9), 0.0001)
             ardrone.time_stamp = ardrone.get_time()
             x_des, y_des, z_des, yaw_des = ardrone.x_des, ardrone.y_des, ardrone.z_des, ardrone.yaw_des
->>>>>>> b99e4d7081b7147fd781b7057c19cb23292b5bdb
             traj = positionCtrl.getDesiredState(currentPosition, currentOrientation, x_des, y_des, z_des, yaw_des, dt)
             #publish actuation commands
             ardrone.set_vel(traj)

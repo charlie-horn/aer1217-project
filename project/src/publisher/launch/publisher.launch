@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Launch file to start the AR.Drone 2.0 simulator for AER1217 -->
+<!-- UTIAS CARRE AER1217 - Winter 2017 
+-->
+
+<launch>
+  <include file="$(find processor)/launch/processor.launch"/>
+
+  <node name="data_publisher" pkg="publisher" 
+    type="publisher.py" output="screen" required="True"/>
+
+</launch>

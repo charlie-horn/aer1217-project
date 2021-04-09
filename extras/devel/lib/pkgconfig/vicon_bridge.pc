@@ -1,8 +1,0 @@
-prefix=/home/charlie/aer1217/extras/devel
-
-Name: vicon_bridge
-Description: Description of vicon_bridge
-Version: 1.0.1
-Cflags: -I/home/charlie/aer1217/extras/devel/include
-Libs: -L${prefix}/lib 
-Requires: dynamic_reconfigure geometry_msgs message_runtime roscpp

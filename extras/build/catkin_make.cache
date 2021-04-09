@@ -1,2 +1,0 @@
-ardrone_autonomy:ardrone_tutorials:vicon_bridge
--DCATKIN_DEVEL_PREFIX=/home/charlie/aer1217/extras/devel -DCMAKE_INSTALL_PREFIX=/home/charlie/aer1217/extras/install -G Unix Makefiles

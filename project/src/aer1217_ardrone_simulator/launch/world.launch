@@ -15,7 +15,7 @@
   <arg name="debug" default="false"/>
   <arg name="verbose" default="true"/>
   <arg name="world_name"
-    default="empty.world"/>
+    default="project2021.world"/>
 
   <param name="/use_sim_time" value="false" />
 

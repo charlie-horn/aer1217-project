@@ -1,0 +1,2 @@
+aer1217_ardrone_simulator:aer1217_ardrone_vicon:processor:publisher
+-DCATKIN_DEVEL_PREFIX=/home/charlie/project/project/devel -DCMAKE_INSTALL_PREFIX=/home/charlie/project/project/install -G Unix Makefiles

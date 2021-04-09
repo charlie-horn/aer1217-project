@@ -1,0 +1,8 @@
+prefix=/home/charlie/project/project/devel
+
+Name: aer1217_ardrone_vicon
+Description: Description of aer1217_ardrone_vicon
+Version: 0.0.0
+Cflags: -I/home/charlie/project/project/devel/include
+Libs: -L${prefix}/lib 
+Requires: message_runtime

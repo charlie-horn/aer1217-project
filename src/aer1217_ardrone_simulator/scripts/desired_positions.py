@@ -43,6 +43,8 @@ class ROSDesiredPositionGenerator(object):
         #self.circular(self.total_count / 2)
         self.traj_timer = rospy.Timer(rospy.Duration(1. / self.freq), self.pub_des_pos)
 
+
+
     def linear(self, n):
         x1 = np.linspace(-1, 1, n)
         x2 = np.linspace(1, -1, n)
@@ -136,5 +138,46 @@ class ROSDesiredPositionGenerator(object):
 
 if __name__ == '__main__':
     rospy.init_node('desired_positions')
-    ROSDesiredPositionGenerator()
+    landmarks = [1,2,3,4]
+    origin = (0, 0, 0, 0, 0, 0)
+    casa_loma = (7.13, 5.79, 0, 0, 0, 0.62)
+    cn_tower = (3.21, 1.43, 0, 0, 0, -1.33)
+    nathan_phillips = (1.92, 6.61, 0, 0, 0, 2.87)
+    princes_gate = (8.73, 4.77, 0, 0, 0, -0.44)
+    
+    paths = [
+                [ [],
+                    [origin, casa_loma], # origin to Casa Loma
+                    [origin, cn_tower], # origin to CN Tower
+                    [origin, nathan_phillips], # origin to Nathan Phillips
+                    [origin, princes_gate], # origin to Pronce's Gate
+                ],
+                [ [], [],
+                    [casa_loma, cn_tower], # Casa Loma to CN Tower
+                    [casa_loma, nathan_phillips], # Casa Loma to Nathan Phillips
+                    [casa_loma, princes_gate], # Casa Loma to Princes Gate
+                ],
+                [ [], [], [],
+                    [cn_tower, nathan_phillips], # CN Tower to Nathan Phillips
+                    [cn_tower, princes_gate], # CN Tower to Prince's Gate
+                ],
+                [ [], [], [], [],
+                    [nathan_phillips, princes_gate] # Nathan Phillips to Prince's Gate
+                ]
+            ]
+
+    position_generator = ROSDesiredPositionGenerator()
+    current_position = 0 # Start at the origin
+    for landmark in landmarks:
+        target = locations[landmark]
+        if current_position < landmark:
+            path = paths[current_position, landmark]
+        else:
+            path = paths[landmark, current_position]
+            path = reversed(path)
+
+        position_generator.set_path(path)
+        position_controller.set_orientation()
+        current_position = landmark
+
     rospy.spin()

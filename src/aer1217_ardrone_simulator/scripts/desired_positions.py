@@ -43,7 +43,10 @@ class ROSDesiredPositionGenerator(object):
         #self.circular(self.total_count / 2)
         self.traj_timer = rospy.Timer(rospy.Duration(1. / self.freq), self.pub_des_pos)
 
-
+    def set_path(self, path):
+        for point in path[1:]:
+            while 
+        return
 
     def linear(self, n):
         x1 = np.linspace(-1, 1, n)
@@ -86,7 +89,7 @@ class ROSDesiredPositionGenerator(object):
         euler = euler_from_quaternion(quaternion)
         self.yaw = euler[2]
 
-    def pub_des_pos(self, i):
+    def pub_des_pos(self, point):
         msg = Twist()
         msg.linear.x = self.x_des[self.count]
         msg.linear.y = self.y_des[self.count]
@@ -95,20 +98,6 @@ class ROSDesiredPositionGenerator(object):
 
         self.pub_traj.publish(msg)
         
-#         if self.path_des == 'cir' or self.path_des == 'lin':
-#             if  self.count == 0 or self.count == floor(self.total_count/2)-1:
-#                 update_count = self.check_dist(self.x_des[self.count], self.x) and \
-#                                self.check_dist(self.y_des[self.count], self.y) and \
-#                                self.check_dist(self.z_des[self.count], self.z) and \
-#                                self.yaw_check(self.yaw_des[self.count], self.yaw)
-#             else:
-#                 update_count = 1
-#         else:
-#             update_count = self.check_dist(self.x_des[self.count], self.x) and \
-#                            self.check_dist(self.y_des[self.count], self.y) and \
-#                            self.check_dist(self.z_des[self.count], self.z) and \
-#                            self.yaw_check(self.yaw_des[self.count], self.yaw)
-
         update_count = self.check_dist(self.x_des[self.count], self.x) and \
                        self.check_dist(self.y_des[self.count], self.y) and \
                        self.check_dist(self.z_des[self.count], self.z) and \
@@ -177,7 +166,6 @@ if __name__ == '__main__':
             path = reversed(path)
 
         position_generator.set_path(path)
-        position_controller.set_orientation()
         current_position = landmark
 
     rospy.spin()

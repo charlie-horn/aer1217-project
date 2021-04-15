@@ -14,7 +14,7 @@ class Publisher():
         self.pub_vel = rospy.Publisher("/lab3_vel", Twist, queue_size = "0")
         self.package = rospkg.RosPack()
         print(self.package.get_path('publisher'))
-        self.bag = rosbag.Bag(self.package.get_path('publisher') + '/lab3.bag')
+        self.bag = rosbag.Bag(self.package.get_path('publisher') + '/FinalProject2021-04-09-21-13-44.bag')
         return
 
     def publish_cam(self, msg):
@@ -31,7 +31,7 @@ if __name__ == '__main__':
     rospy.init_node("publisher", disable_signals=True)
     data_publisher = Publisher()
     package = rospkg.RosPack()
-    bag_play = subprocess.Popen(["rosbag", "play", package.get_path('publisher') + '/lab3.bag'])
+    bag_play = subprocess.Popen(["rosbag", "play", package.get_path('publisher') + '/FinalProject2021-04-09-21-13-44.bag'])
     try:
         while bag_play.poll() is None:
             time.sleep(1)

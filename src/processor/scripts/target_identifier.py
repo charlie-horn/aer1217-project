@@ -10,65 +10,59 @@ class TargetIdentifier():
     def __init__(self):
         self.pixels = []
 
-        self.k_matrix = np.array([[698.86, 0, 306.91],
-                                  [0, 699.13, 150.34],
+        self.k_matrix = np.array([[604.62, 0, 320.5],
+                                  [0, 604.62, 180.5],
                                   [0, 0, 1]])
-        self.k_inv = np.linalg.inv(self.k_matrix)
 
-        self.d = np.array([0.191887, -0.563680, -0.003676, -0.002037, 0])
+        self.k_inv = np.linalg.inv(self.k_matrix)
 
         return
 
-    def img_undist(self,img):
+    def identify_obstacle(self, img_original):
+        edge = cv2.Canny(img_original, 50, 100)
+        img2 = cv2.GaussianBlur(edge, (5, 5), cv2.BORDER_DEFAULT)
 
-        img_undistort = cv2.undistort(img, self.k_matrix, self.d, None)
+        _,contours, _ = cv2.findContours(img2, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
-        return img_undistort
+        center_list = []
+        radius_list = []
+        dist_thresh = 2
+        rad_thresh = 15
 
-    def identify_targets(self, img_original):
-          img_undistort = cv2.undistort(img_original, self.k_matrix, self.d, None)
-          img2 = cv2.cvtColor(img_undistort, cv2.COLOR_RGB2GRAY)
-          _,mask = cv2.threshold(img2,150,255,cv2.THRESH_BINARY)
-          img2 = cv2.bitwise_and(img2, img2,mask = mask)
-          _, contours, _ = cv2.findContours(img2, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-          contour_list = []
-          center_list = []
-          cX = 0
-          cY = 0
-          for contour in contours:
-              approx = cv2.approxPolyDP(contour,0.02*cv2.arcLength(contour,True),True)
-              area = cv2.contourArea(approx)
-              (x,y),radius = cv2.minEnclosingCircle(approx)
-              center = (int(x),int(y))
-              radius = int(radius)
-              if (radius > 10 and radius < 23  and area > 500 and area < 1250):
-                  contour_list.append(contour)
-                  M = cv2.moments(contour)
-                  cX = int(M["m10"] / M["m00"])
-                  cY = int(M["m01"] / M["m00"])
-                  center_list.append([cX, cY])
-          
-          return center_list
-    
-        # img2 = cv2.inRange(img, (140, 140, 140), (160, 160, 160))
-        #
-        # _, contours, _ = cv2.findContours(binary_img, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-        #
-        # center_list = []
-        # rad_list = []
-        # contour_list = []
-        # dist_thresh = 2
-        # rad_thresh = 10
-        # for contour in contours:
-        #     (x, y), radius = cv2.minEnclosingCircle(contour)
-        #     sum_diff = 0
-        #     for con in contour:
-        #         dist = np.sqrt((con[0][0] - x) ** 2 + (con[0][1] - y) ** 2)
-        #         diff = abs(dist - radius)
-        #         sum_diff += diff
-        #     sum_diff /= len(contour)
-        #     # print(sum_diff)
-        #     if sum_diff < dist_thresh and radius > rad_thresh:
-        #         center_list.append((int(x), int(y)))
-        #         rad_list.append(radius)
-        #         contour_list.append(contour)
+        for contour in contours:
+            (x, y), radius = cv2.minEnclosingCircle(contour)
+
+            sum_diff = 0
+            for c in contour:
+                dist = np.sqrt((c[0][0] - x) ** 2 + (c[0][1] - y) ** 2)
+                diff = abs(dist - radius)
+                sum_diff += diff
+            sum_diff /= len(contour)
+            if sum_diff < dist_thresh and radius > rad_thresh:
+                if len(contour) > 20:
+                    center_list.append((int(x), int(y)))
+                    radius_list.append((int(x)+int(radius), int(y)+int(radius)))
+
+        return center_list, radius_list
+
+    def identify_landmark(self,img_original):
+        edge = cv2.Canny(img_original, 50, 100)
+        img2 = cv2.GaussianBlur(edge, (5, 5), cv2.BORDER_DEFAULT)
+
+        _, contours, _ = cv2.findContours(img2, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
+
+        center_list = []
+
+        for contour in contours:
+            rect = cv2.minAreaRect(contour)
+            box = cv2.boxPoints(rect)
+            box = np.int0(box)
+            width = rect[1][0]
+            height = rect[1][1]
+            center = rect[0]
+
+            if width > 170 and height > 170:
+                center_list.append((int(center[0]), int(center[1])))
+
+        return center_list
+

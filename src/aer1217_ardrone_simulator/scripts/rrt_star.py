@@ -104,7 +104,8 @@ class RRT_star:
       self.graph.remove(self.graph[len(self.graph)-1])
       self.graph.append(node)
 
-      self.goal_path.clear()
+      #self.goal_path.clear()
+      self.goal_path = []
       for node in self.graph:
           if node.isGoal:
             self.goal_path.append(node)

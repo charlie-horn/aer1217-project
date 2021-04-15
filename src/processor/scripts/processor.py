@@ -98,9 +98,9 @@ if __name__ == '__main__':
         rospy.spin()
         r = np.array(data_processor.radius_list).reshape(-1, 1)
         l = data_processor.ob_locations
-        cluster.cluster(np.hstack((l,r)))
+        cluster.cluster(np.hstack((l,r)),10)
         cluster = Cluster()
-        cluster.cluster(data_processor.lm_locations)
+        cluster.cluster(data_processor.lm_locations,30)
         print("\nShutting Down")
         print("Total frames: ", data_processor.frames)
         print("Obstacle frames: ", data_processor.obstacle_frames)

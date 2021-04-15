@@ -11,6 +11,7 @@ class Environment:
                               [5, 5]]
 
     self.obstacle_radii = [1, 1, 1.25]           # radius corresponding to each obstacle
+    self.close_enough = 0.2                      # how close to get to an obstacle
     self.start = start                           # start location
     self.goal = goal                             # goal location
 
@@ -154,7 +155,7 @@ class RRT_star:
       for i in range(len(self.env.obstacle_locations)):
         arg = np.array(self.env.obstacle_locations[i]) - np.array(point)
         dist = np.linalg.norm(np.array(self.env.obstacle_locations[i]) - np.array(point))
-        if dist <= self.env.obstacle_radii[i]:
+        if dist <= self.env.obstacle_radii[i] + self.env.close_enough:
           invalidPoint = True
       return invalidPoint
 
@@ -231,7 +232,7 @@ class RRT_star:
           vec = arr2 - arr1
           x_range = np.linalg.norm(vec)
         
-        if x_range < self.env.obstacle_radii[i]:
+        if x_range < self.env.obstacle_radii[i] + self.env.close_enough:
           invalidPath = True
           break
       return invalidPath

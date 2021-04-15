@@ -15,6 +15,8 @@ from tf.transformations import euler_from_quaternion, quaternion_from_euler
 from ros_interface import ROSControllerNode
 from numpy import floor
 
+from rrt_star import RRT_star
+
 class ROSDesiredPositionGenerator(object):
     """ROS interface for publishing desired positions."""
     # write code here for desired position trajectory generator
@@ -28,7 +30,7 @@ class ROSDesiredPositionGenerator(object):
 
         self.x_des = []
         self.y_des = []
-        self.z_des = []
+        self.z_des = 3
         self.yaw_des = []
         self.count = 0
 
@@ -39,43 +41,12 @@ class ROSDesiredPositionGenerator(object):
 
         self.total_count = 2 # 2 points for linear, 25 points for circular
         self.thresh = 0.1
-        self.linear(self.total_count/2)
-        #self.circular(self.total_count / 2)
         self.traj_timer = rospy.Timer(rospy.Duration(1. / self.freq), self.pub_des_pos)
 
-    def set_path(self, path):
-        for point in path[1:]:
-            while 
+    def set_path(self, x_vals, y_vals):
+        self.x_des = x_vals
+        self.y_des = y_vals
         return
-
-    def linear(self, n):
-        x1 = np.linspace(-1, 1, n)
-        x2 = np.linspace(1, -1, n)
-        self.x_des = np.concatenate((x1, x2))
-
-        y1 = np.linspace(-1, 1, n)
-        y2 = np.linspace(1, -1, n)
-        self.y_des = np.concatenate((y1, y2))
-
-        z1 = np.linspace(1, 2, n)
-        z2 = np.linspace(2, 1, n)
-        self.z_des = np.concatenate((z1, z2))
-
-        self.yaw_des = np.zeros(int(2*n)) #?
-
-    def circular(self, n):
-        r = 1
-        theta = np.linspace(0, 2*np.pi, n*2)
-        self.x_des = np.cos(theta) * r
-        self.y_des = np.sin(theta) * r
-
-        z1 = np.linspace(0.5, 1.5, n)
-        z2 = np.linspace(1.5, 0.5, n)
-        self.z_des = np.concatenate((z1, z2))
-
-        #self.yaw_des = np.zeros(2 * n)
-
-        self.yaw_des = np.linspace(-np.pi, np.pi, n*2)
 
     # callback function for vicon
     def get_vicon_data(self, vicon_msg):
@@ -93,8 +64,8 @@ class ROSDesiredPositionGenerator(object):
         msg = Twist()
         msg.linear.x = self.x_des[self.count]
         msg.linear.y = self.y_des[self.count]
-        msg.linear.z = self.z_des[self.count]
-        msg.angular.z = self.yaw_des[self.count]
+
+        #msg.angular.z = self.yaw_des[self.count]
 
         self.pub_traj.publish(msg)
         
@@ -128,11 +99,16 @@ class ROSDesiredPositionGenerator(object):
 if __name__ == '__main__':
     rospy.init_node('desired_positions')
     landmarks = [1,2,3,4]
+
+
+
     origin = (0, 0, 0, 0, 0, 0)
     casa_loma = (7.13, 5.79, 0, 0, 0, 0.62)
     cn_tower = (3.21, 1.43, 0, 0, 0, -1.33)
     nathan_phillips = (1.92, 6.61, 0, 0, 0, 2.87)
     princes_gate = (8.73, 4.77, 0, 0, 0, -0.44)
+
+    locations = [origin, casa_loma, cn_tower, nathan_phillips, princes_gate]
     
     paths = [
                 [ [],
@@ -156,16 +132,16 @@ if __name__ == '__main__':
             ]
 
     position_generator = ROSDesiredPositionGenerator()
-    current_position = 0 # Start at the origin
+    current_position = origin # Start at the origin
     for landmark in landmarks:
-        target = locations[landmark]
-        if current_position < landmark:
-            path = paths[current_position, landmark]
-        else:
-            path = paths[landmark, current_position]
-            path = reversed(path)
+        start = current_position
+        end = locations[landmark]
+        planner = RRT_star(start, end, 2, 1000)
 
-        position_generator.set_path(path)
-        current_position = landmark
+        planner.plan()
+        x, y = planner.convertNodes()
+
+        position_generator.set_path(x,y)
+        current_position = end
 
     rospy.spin()

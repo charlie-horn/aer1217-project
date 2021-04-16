@@ -40,7 +40,7 @@ class ROSDesiredPositionGenerator(object):
         self.yaw = 0
 
         #self.total_count = 2 # 2 points for linear, 25 points for circular
-        self.thresh = 0.25
+        self.thresh = 0.4 #0.25
         self.traj_timer = rospy.Timer(rospy.Duration(1. / self.freq), self.pub_des_pos)
 
     def set_path(self, x_vals, y_vals, yaw_vals):

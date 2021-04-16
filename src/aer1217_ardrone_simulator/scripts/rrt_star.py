@@ -68,7 +68,7 @@ class RRT_star:
 
       # check if goal
       isGoal = False
-      if self.goalState(X_new):
+      if X_new == self.x_goal:
         isGoal = True
         self.goal_reached = True
         print("Goal Reached") 
@@ -151,8 +151,9 @@ class RRT_star:
         delta_y = y_rand - nearest_node.location[1]
         x_rand = nearest_node.location[0] + (delta_x/dist_to_nn)*self.max_step_len
         y_rand = nearest_node.location[1] + (delta_y/dist_to_nn)*self.max_step_len
+        rand_point = (x_rand, y_rand)
 
-      return (x_rand, y_rand)
+      return rand_point
 
   def checkInvalidPoint(self, point):
       # get euclidean dist between point and center of each obstacle and compare to radius

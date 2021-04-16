@@ -6,11 +6,15 @@ import time
 class Environment:
   def __init__(self, start, goal):
     self.bounds = [9, 9]                         # map bounds [x, y]
-    self.obstacle_locations = [[8, 3],           # center coordinates of obstacles
-                              [2, 4],
-                              [5, 5]]
+    self.obstacle_locations = [[1.09, 7.99],           # center coordinates of obstacles
+                              [4.5, 7.59],
+                              [8.28, 8.41],
+                              [6.01, 3.68],
+                              [8.63, 1.7],
+                              [2.36, 3.71],
+                              [3.07, 4.38]]
 
-    self.obstacle_radii = [1, 1, 1.25]           # radius corresponding to each obstacle
+    self.obstacle_radii = 3*[0.213, 0.427, 0.293, 0.567, 0.289, 0.723, 0.367]           # radius corresponding to each obstacle
     self.close_enough = 0.2                      # how close to get to an obstacle
     self.start = start                           # start location
     self.goal = goal                             # goal location

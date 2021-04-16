@@ -1593,7 +1593,7 @@
       </model>
       <model name='Red Target_0'>
         <pose frame=''>0 0 0 0 -0 0</pose>
-        <scale>0.63 0.63 1000</scale>
+        <scale>0.72 0.72 1000</scale>
         <link name='link'>
           <pose frame=''>1.09 7.99 0 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
@@ -1603,7 +1603,7 @@
       </model>
       <model name='Red Target_1'>
         <pose frame=''>0 0 0 0 -0 0</pose>
-        <scale>1.28 1.28 1000</scale>
+        <scale>1.56 1.56 1000</scale>
         <link name='link'>
           <pose frame=''>4.50 7.59 0 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
@@ -1613,7 +1613,7 @@
       </model>
       <model name='Red Target_2'>
         <pose frame=''>0 0 0 0 -0 0</pose>
-        <scale>0.87 0.87 1000</scale>
+        <scale>0.1.08 1.08 1000</scale>
         <link name='link'>
           <pose frame=''>8.28 8.41 0 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
@@ -1623,7 +1623,7 @@
       </model>
       <model name='Red Target_3'>
         <pose frame=''>0 0 0 0 -0 0</pose>
-        <scale>0.85 0.85 1000</scale>
+        <scale>2.1 2.1 1000</scale>
         <link name='link'>
           <pose frame=''>6.01 3.68 0 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
@@ -1631,9 +1631,9 @@
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
       </model>
-      <model name='Red Target_4'>
+      <model name='Red Target_4'> 
         <pose frame=''>0 0 0 0 -0 0</pose>
-        <scale>0.87 0.87 1000</scale>
+        <scale>1.08 1.08 1000</scale>
         <link name='link'>
           <pose frame=''>8.63 1.7 0 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
@@ -1643,7 +1643,7 @@
       </model>
       <model name='Red Target_5'>
         <pose frame=''>0 0 0 0 -0 0</pose>
-        <scale>2.17 2.17 1000</scale>
+        <scale>2.64 2.64 1000</scale>
         <link name='link'>
           <pose frame=''>2.36 3.71 0 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
@@ -1653,7 +1653,7 @@
       </model>
       <model name='Red Target_6'>
         <pose frame=''>0 0 0 0 -0 0</pose>
-        <scale>1.11 1.11 1000</scale>
+        <scale>1.32 1.32 1000</scale>
         <link name='link'>
           <pose frame=''>3.07 4.37 0 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>

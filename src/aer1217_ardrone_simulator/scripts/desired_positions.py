@@ -40,7 +40,7 @@ class ROSDesiredPositionGenerator(object):
         self.yaw = 0
 
         #self.total_count = 2 # 2 points for linear, 25 points for circular
-        self.thresh = 0.1
+        self.thresh = 0.25
         self.traj_timer = rospy.Timer(rospy.Duration(1. / self.freq), self.pub_des_pos)
 
     def set_path(self, x_vals, y_vals, yaw_vals):
@@ -106,7 +106,7 @@ class ROSDesiredPositionGenerator(object):
 
 if __name__ == '__main__':
     rospy.init_node('desired_positions')
-    landmarks = [0,1,2,3,4,0]
+    landmarks = [1,2,3,4,0]
 
     altitude = 3
 
@@ -119,19 +119,23 @@ if __name__ == '__main__':
     locations = [origin, casa_loma, cn_tower, nathan_phillips, princes_gate]
     
     position_generator = ROSDesiredPositionGenerator(altitude)
-    position_generator.set_path([1],[1],[0])
+    position_generator.set_path([1,1],[1,1],[0])
+    while not position_generator.finished:
+        pass
     current_position = origin # Start at the origin
     for landmark in landmarks:
         print("----------- Going to landmark", landmark)
         start = current_position
         end = locations[landmark]
-        planner = RRT_star((start[0],start[1]), (end[0],end[1]), 2, 100)
+        planner = RRT_star((start[0],start[1]), (end[0],end[1]), 2, 200)
         
         planner.plan()
         print("----------- Done planning")
         x_vals, y_vals = planner.convertNodes()
         x_vals.reverse()
+        x_vals.append(end[0])
         y_vals.reverse()
+        y_vals.append(end[1])
         print("--- Start", start[0], start[1])
         for i,x in enumerate(x_vals):
             print(x,y_vals[i])

@@ -41,7 +41,7 @@ class TargetIdentifier():
             if sum_diff < dist_thresh and radius > rad_thresh:
                 if len(contour) > 20:
                     center_list.append((int(x), int(y)))
-                    radius_list.append((int(x)+int(radius), int(y)+int(radius)))
+                    radius_list.append((int(x), int(y)+int(radius)))
 
         return center_list, radius_list
 

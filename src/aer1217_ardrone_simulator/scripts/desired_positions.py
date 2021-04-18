@@ -145,7 +145,7 @@ if __name__ == '__main__':
         print("----------- Going to landmark", landmark_names[landmark])
         start = current_position
         end = locations[landmark]
-        planner = RRT_star((start[0],start[1]), (end[0],end[1]), 2, 500)
+        planner = RRT_star((start[0],start[1]), (end[0],end[1]), 1.5, 500)
         
         planner.plan()
         print("----------- Done planning")

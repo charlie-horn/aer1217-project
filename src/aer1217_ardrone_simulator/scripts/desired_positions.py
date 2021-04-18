@@ -35,7 +35,7 @@ class ROSDesiredPositionGenerator(object):
         self.x_des = []
         self.y_des = []
         self.z_des = altitude
-        self.yaw_des = [0]
+        self.yaw_des = 0
         self.count = 0
 
         self.x = 0
@@ -47,14 +47,14 @@ class ROSDesiredPositionGenerator(object):
         self.thresh = 0.4 #0.25
         self.traj_timer = rospy.Timer(rospy.Duration(1. / self.freq), self.pub_des_pos)
 
-    def set_path(self, x_vals, y_vals, yaw_vals):
+    def set_path(self, x_vals, y_vals, yaw_val):
         self.finished = False
         self.total_count = len(x_vals)
         print("-------", self.total_count, "points")
         self.count = 0
         self.x_des = x_vals
         self.y_des = y_vals
-        self.yaw_des = yaw_vals
+        self.yaw_des = yaw_val
         return
 
     # callback function for vicon
@@ -81,16 +81,18 @@ class ROSDesiredPositionGenerator(object):
 
         msg.linear.x = self.x_des[self.count]
         msg.linear.y = self.y_des[self.count]
+      
         msg.linear.z = self.z_des
-
-        msg.angular.z = self.yaw_des[self.count]
+        
+        if self.count == len(self.x_des)-1
+            msg.angular.z = self.yaw_des
 
         self.pub_traj.publish(msg)
         if self.count == len(self.x_des)-1:
             update_count = self.check_dist(self.x_des[self.count], self.x, 0.1) and \
                            self.check_dist(self.y_des[self.count], self.y, 0.1) and \
                            self.check_dist(self.z_des, self.z, 0.1) and \
-                           self.yaw_check(self.yaw_des[self.count], self.yaw, 0.1)
+                           self.yaw_check(self.yaw_des, self.yaw, 0.1)
         else:
             update_count = self.check_dist(self.x_des[self.count], self.x, self.thresh) and \
                            self.check_dist(self.y_des[self.count], self.y, self.thresh) #and \
@@ -166,9 +168,8 @@ if __name__ == '__main__':
         print("--- Start", start[0], start[1])
         for i,x in enumerate(x_vals):
             print(x,y_vals[i])
-        yaw_vals = len(x_vals)*[0]
-        yaw_vals[-1] = end[5]+1.57
-        position_generator.set_path(x_vals,y_vals,yaw_vals)
+        yaw_val = end[5]+1.57
+        position_generator.set_path(x_vals,y_vals,yaw_val)
         #position_generator.set_path([end[0]],[end[1]],[end[5]])
         while not position_generator.finished:
             pass

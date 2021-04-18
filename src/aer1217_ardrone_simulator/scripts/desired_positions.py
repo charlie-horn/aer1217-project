@@ -71,11 +71,13 @@ class ROSDesiredPositionGenerator(object):
 
     def pub_des_pos(self, point):
         msg = Twist()
-        curr_dist = abs(msg.linear.x - self.x_des[self.count])+abs(msg.linear.y - self.y_des[self.count])
-        next_dist = abs(msg.linear.x - self.x_des[self.counti+1])+abs(msg.linear.y - self.y_des[self.count+1])
-        if curr_dist > next_dist and self.skip_points:
-            print(self.count)
-            count += 1
+        try:
+            curr_dist = abs(msg.linear.x - self.x_des[self.count])+abs(msg.linear.y - self.y_des[self.count])
+            next_dist = abs(msg.linear.x - self.x_des[self.count+1])+abs(msg.linear.y - self.y_des[self.count+1])
+            if curr_dist > next_dist and self.skip_points:
+                self.count += 1
+        except IndexError:
+            pass
 
         msg.linear.x = self.x_des[self.count]
         msg.linear.y = self.y_des[self.count]

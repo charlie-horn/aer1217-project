@@ -115,6 +115,13 @@ if __name__ == '__main__':
     
     ##### PARAMETERS ######
     landmarks = [1,2,3,4,0]
+    landmark_names = {
+                0: "Origin",
+                1: "Casa Loma",
+                2: "CN Tower",
+                3: "Nathan Phillips",
+                4: "Princes Gate"
+            }
 
     altitude = 3
     pause_time = 5
@@ -122,7 +129,7 @@ if __name__ == '__main__':
     ##### LANDMARKS #####
     origin = (1, 1, altitude, 0, 0, 0)
     casa_loma = (7.149, 5.829, altitude, 0, 0, 0.62)
-    cn_tower = (8.75, 4.74, altitude, 0, 0, -1.33)
+    cn_tower = (3.21, 1.4, altitude, 0, 0, -1.33)
     nathan_phillips = (1.933, 6.608, altitude, 0, 0,2.851)
     princes_gate = (8.752, 4.74, altitude, 0, 0, -0.48)
 
@@ -135,10 +142,10 @@ if __name__ == '__main__':
 
     current_position = origin # Start at the origin
     for landmark in landmarks:
-        print("----------- Going to landmark", landmark)
+        print("----------- Going to landmark", landmark_names[landmark])
         start = current_position
         end = locations[landmark]
-        planner = RRT_star((start[0],start[1]), (end[0],end[1]), 2, 1000)
+        planner = RRT_star((start[0],start[1]), (end[0],end[1]), 2, 500)
         
         planner.plan()
         print("----------- Done planning")

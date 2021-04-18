@@ -1661,11 +1661,11 @@
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
       </model>
-      <model name='nathan_philips_square'>
+      <model name='nathan_phillips_square'>
         <pose frame=''>0 0 0 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='box'>
-          <pose frame=''>1.93 6.61 0 0 0 2.85</pose>
+          <pose frame=''>1.93 6.61 0 0 -0 0.62</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
@@ -1675,17 +1675,17 @@
         <pose frame=''>0 0 0 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='box'>
-          <pose frame=''>7.15 5.83 0 0 -0 0.615</pose>
+          <pose frame=''>7.15 5.83 0 0 -0 -1.33</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
       </model>
-      <model name='princes_gates'>
+      <model name='princes_gate'>
         <pose frame=''>0 0 0 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='box'>
-          <pose frame=''>8.75 4.74 0 0 -0 -0.477</pose>
+          <pose frame=''>8.75 4.74 0 0 -0 2.87</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
@@ -1695,7 +1695,7 @@
         <pose frame=''>0 0 0 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='box'>
-          <pose frame=''>3.22 1.4 0 0 0 -1.32</pose>
+          <pose frame=''>3.22 1.4 0 0 0 -0.44</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>

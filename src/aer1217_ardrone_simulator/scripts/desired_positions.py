@@ -23,7 +23,8 @@ import subprocess
 class ROSDesiredPositionGenerator(object):
     """ROS interface for publishing desired positions."""
     # write code here for desired position trajectory generator
-    def __init__(self, altitude):
+    def __init__(self, altitude, skip_points):
+        self.skip_points = skip_points
         self.vicon_topic = '/vicon/ARDroneCarre/ARDroneCarre'
         self.sub_vicon = rospy.Subscriber(self.vicon_topic, TransformStamped, self.get_vicon_data)
         self.pub_traj = rospy.Publisher('/desired_position', Twist, queue_size=10)
@@ -70,6 +71,12 @@ class ROSDesiredPositionGenerator(object):
 
     def pub_des_pos(self, point):
         msg = Twist()
+        curr_dist = abs(msg.linear.x - self.x_des[self.count])+abs(msg.linear.y - self.y_des[self.count])
+        next_dist = abs(msg.linear.x - self.x_des[self.counti+1])+abs(msg.linear.y - self.y_des[self.count+1])
+        if curr_dist > next_dist and self.skip_points:
+            print(self.count)
+            count += 1
+
         msg.linear.x = self.x_des[self.count]
         msg.linear.y = self.y_des[self.count]
         msg.linear.z = self.z_des
@@ -125,7 +132,7 @@ if __name__ == '__main__':
 
     altitude = 3
     pause_time = 5
-    
+    skip_points = True
     ##### LANDMARKS #####
     origin = (1, 1, altitude, 0, 0, 0)
     casa_loma = (7.149, 5.829, altitude, 0, 0, 0.62)
@@ -135,7 +142,7 @@ if __name__ == '__main__':
 
     locations = [origin, casa_loma, cn_tower, nathan_phillips, princes_gate]
     
-    position_generator = ROSDesiredPositionGenerator(altitude)
+    position_generator = ROSDesiredPositionGenerator(altitude, skip_points)
     position_generator.set_path([1,1],[1,1],0) # Go to starting point
     while not position_generator.finished:
         pass

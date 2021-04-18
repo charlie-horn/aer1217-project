@@ -118,7 +118,7 @@ class ROSDesiredPositionGenerator(object):
         yaw_error = des - act
         if yaw_error > np.pi:
             yaw_error = yaw_error - 2 * np.pi
-        if yaw_error > 0.35*thresh:
+        if yaw_error > 0.2*thresh:
             return False
         else:
             return True

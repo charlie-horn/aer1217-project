@@ -162,7 +162,7 @@ class PositionController(object):
         y_double_dot_P_gain = x_double_dot_P_gain #0.08
         y_double_dot_D_gain = x_double_dot_D_gain #1.33 #0.1
 
-        yaw_dot_P_gain = 0.5 #3 #1
+        yaw_dot_P_gain = 0.7 #3 #1
         z_dot_P_gain = 0.04 #0.05 0.74
 
         self.x_double_dot_des = x_double_dot_D_gain*(self.x_dot_des - self.x_dot) + x_double_dot_P_gain*(x_des - self.x)

@@ -16,7 +16,7 @@ class Environment:
 
     self.obstacle_radii = [0.12, 0.26, 0.18, 0.35, 0.18, 0.44, 0.22]           # radius corresponding to each obstacle
     self.obstacle_radii = [radius * 3 for radius in self.obstacle_radii]
-    self.close_enough = 0.55                     # how close to get to an obstacle
+    self.close_enough = 0.75                     # how close to get to an obstacle
     self.start = start                           # start location
     self.goal = goal                             # goal location
 
@@ -38,7 +38,7 @@ class RRT_star:
     self.x_goal = x_goal                           # goal location (type: point/tuple)
     self.max_step_len = max_step_len               # truncate if sampled point beyond this distance (type: float)
     self.max_iter = max_iter                       # how many iterations to run the planner (type: integer)
-    self.search_rad = 2.0                          # maximum search radius to get list of proximal points (type: float)
+    self.search_rad = 1.5                          # maximum search radius to get list of proximal points (type: float)
     self.goal_path = []                            # lowest cost path so far (type: list of node ids)
     self.env = Environment(x_start, x_goal)        # initialize environment (type: Environment class)
     self.goal_state_thresh = 0.60                  # how far away should a point be to be considered goal (type: float)

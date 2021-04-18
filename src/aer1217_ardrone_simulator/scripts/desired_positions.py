@@ -114,17 +114,17 @@ if __name__ == '__main__':
     rospy.init_node('desired_positions')
     
     ##### PARAMETERS ######
-    landmarks = [4,0]#[1,2,3,4,0]
+    landmarks = [1,2,3,4,0]
 
     altitude = 3
     pause_time = 5
     
     ##### LANDMARKS #####
     origin = (1, 1, altitude, 0, 0, 0)
-    casa_loma = (1.933, 6.61, altitude, 0, 0, 0.62)
-    cn_tower = (7.14, 5.83, altitude, 0, 0, -1.33)
-    nathan_phillips = (8.75, 4.74, altitude, 0, 0, 2.87)
-    princes_gate = (3.22, 1.40, altitude, 0, 0, -0.44)
+    casa_loma = (7.149, 5.829, altitude, 0, 0, 0.62)
+    cn_tower = (8.75, 4.74, altitude, 0, 0, -1.33)
+    nathan_phillips = (1.933, 6.608, altitude, 0, 0,2.851)
+    princes_gate = (8.752, 4.74, altitude, 0, 0, -0.48)
 
     locations = [origin, casa_loma, cn_tower, nathan_phillips, princes_gate]
     
@@ -138,7 +138,7 @@ if __name__ == '__main__':
         print("----------- Going to landmark", landmark)
         start = current_position
         end = locations[landmark]
-        planner = RRT_star((start[0],start[1]), (end[0],end[1]), 2, 200)
+        planner = RRT_star((start[0],start[1]), (end[0],end[1]), 2, 1000)
         
         planner.plan()
         print("----------- Done planning")

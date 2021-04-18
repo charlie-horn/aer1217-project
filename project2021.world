@@ -1613,7 +1613,7 @@
       </model>
       <model name='Red Target_2'>
         <pose frame=''>0 0 0 0 -0 0</pose>
-        <scale>0.1.08 1.08 1000</scale>
+        <scale>1.08 1.08 1000</scale>
         <link name='link'>
           <pose frame=''>8.28 8.41 0 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
@@ -1661,7 +1661,7 @@
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
       </model>
-      <model name='casa_loma'>
+      <model name='nathan_phillips_square'>
         <pose frame=''>0 0 0 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='box'>
@@ -1671,7 +1671,7 @@
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
       </model>
-      <model name='cn_tower'>
+      <model name='casa_loma'>
         <pose frame=''>0 0 0 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='box'>
@@ -1681,7 +1681,7 @@
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
       </model>
-      <model name='nathan_philips_square'>
+      <model name='princes_gate'>
         <pose frame=''>0 0 0 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='box'>
@@ -1691,7 +1691,7 @@
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
       </model>
-      <model name='princes_gates'>
+      <model name='cn_tower'>
         <pose frame=''>0 0 0 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='box'>

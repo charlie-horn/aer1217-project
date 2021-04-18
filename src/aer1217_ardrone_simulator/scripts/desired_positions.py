@@ -93,7 +93,7 @@ class ROSDesiredPositionGenerator(object):
         if self.count == len(self.x_des)-1:
             update_count = self.check_dist(self.x_des[self.count], self.x, 0.1) and \
                            self.check_dist(self.y_des[self.count], self.y, 0.1) and \
-                           self.check_dist(self.z_des, self.z, 0.1) and \
+                           self.check_dist(self.z_des, self.z, 0.4) and \
                            self.yaw_check(self.yaw_des, self.yaw, 0.1)
         else:
             update_count = self.check_dist(self.x_des[self.count], self.x, self.thresh) and \
@@ -118,7 +118,7 @@ class ROSDesiredPositionGenerator(object):
         yaw_error = des - act
         if yaw_error > np.pi:
             yaw_error = yaw_error - 2 * np.pi
-        if yaw_error > 0.2*thresh:
+        if yaw_error > 0.35*thresh:
             return False
         else:
             return True

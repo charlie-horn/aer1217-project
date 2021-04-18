@@ -118,7 +118,7 @@ class ROSDesiredPositionGenerator(object):
         yaw_error = des - act
         if yaw_error > np.pi:
             yaw_error = yaw_error - 2 * np.pi
-        if yaw_error > 0.5*thresh:
+        if yaw_error > 0.2*thresh:
             return False
         else:
             return True
@@ -141,10 +141,10 @@ if __name__ == '__main__':
     skip_points = False
     ##### LANDMARKS #####
     origin = (1, 1, altitude, 0, 0, 0)
-    casa_loma = (7.149, 5.829, altitude, 0, 0, 0.62)
-    cn_tower = (3.21, 1.4, altitude, 0, 0, -1.33)
-    nathan_phillips = (1.933, 6.608, altitude, 0, 0,2.851)
-    princes_gate = (8.752, 4.74, altitude, 0, 0, -0.48)
+    casa_loma = (7.149, 5.829, altitude, 0, 0, 0.615)
+    cn_tower = (3.21, 1.4, altitude, 0, 0, -1.32)
+    nathan_phillips = (1.933, 6.608, altitude, 0, 0,2.85)
+    princes_gate = (8.752, 4.74, altitude, 0, 0, -0.477)
 
     locations = [origin, casa_loma, cn_tower, nathan_phillips, princes_gate]
     
@@ -170,7 +170,7 @@ if __name__ == '__main__':
         print("--- Start", start[0], start[1])
         for i,x in enumerate(x_vals):
             print(x,y_vals[i])
-        yaw_val = end[5]+1.57
+        yaw_val = end[5]+np.pi/2
         position_generator.set_path(x_vals,y_vals,yaw_val)
         #position_generator.set_path([end[0]],[end[1]],[end[5]])
         while not position_generator.finished:

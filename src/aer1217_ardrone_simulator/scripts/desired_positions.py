@@ -134,7 +134,7 @@ if __name__ == '__main__':
 
     altitude = 3
     pause_time = 5
-    skip_points = True
+    skip_points = False
     ##### LANDMARKS #####
     origin = (1, 1, altitude, 0, 0, 0)
     casa_loma = (7.149, 5.829, altitude, 0, 0, 0.62)
@@ -154,7 +154,7 @@ if __name__ == '__main__':
         print("----------- Going to landmark", landmark_names[landmark])
         start = current_position
         end = locations[landmark]
-        planner = RRT_star((start[0],start[1]), (end[0],end[1]), 1.5, 500)
+        planner = RRT_star((start[0],start[1]), (end[0],end[1]), 1.5, 1000)
         
         planner.plan()
         print("----------- Done planning")

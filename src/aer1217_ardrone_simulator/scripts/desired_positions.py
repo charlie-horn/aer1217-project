@@ -118,7 +118,7 @@ class ROSDesiredPositionGenerator(object):
         yaw_error = des - act
         if yaw_error > np.pi:
             yaw_error = yaw_error - 2 * np.pi
-        if yaw_error > thresh:
+        if yaw_error > 0.5*thresh:
             return False
         else:
             return True
@@ -136,7 +136,7 @@ if __name__ == '__main__':
                 4: "Princes Gate"
             }
 
-    altitude = 2
+    altitude = 2.5
     pause_time = 5
     skip_points = False
     ##### LANDMARKS #####

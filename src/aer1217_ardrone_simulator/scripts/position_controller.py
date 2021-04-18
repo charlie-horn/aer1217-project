@@ -156,7 +156,7 @@ class PositionController(object):
         self.updateState(currentPosition, currentOrientation, dt)
 
         # Gains
-        x_double_dot_P_gain = 0.3 #0.1# 0.59  #0.08
+        x_double_dot_P_gain = 0.5 #0.1# 0.59  #0.08
         x_double_dot_D_gain = 1.4  #1.33 #0.1
 
         y_double_dot_P_gain = x_double_dot_P_gain #0.08

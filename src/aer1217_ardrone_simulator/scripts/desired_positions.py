@@ -84,8 +84,10 @@ class ROSDesiredPositionGenerator(object):
       
         msg.linear.z = self.z_des
         
-        if self.count == len(self.x_des)-1
+        if self.count == len(self.x_des)-1:
             msg.angular.z = self.yaw_des
+        else:
+            msg.angular.z = self.yaw
 
         self.pub_traj.publish(msg)
         if self.count == len(self.x_des)-1:
@@ -134,7 +136,7 @@ if __name__ == '__main__':
                 4: "Princes Gate"
             }
 
-    altitude = 3
+    altitude = 2
     pause_time = 5
     skip_points = False
     ##### LANDMARKS #####
@@ -148,8 +150,8 @@ if __name__ == '__main__':
     
     position_generator = ROSDesiredPositionGenerator(altitude, skip_points)
     position_generator.set_path([1,1],[1,1],0) # Go to starting point
-    while not position_generator.finished:
-        pass
+    
+   
 
     current_position = origin # Start at the origin
     for landmark in landmarks:

@@ -16,7 +16,7 @@ class Environment:
 
     self.obstacle_radii = [0.12, 0.26, 0.18, 0.35, 0.18, 0.44, 0.22]           # radius corresponding to each obstacle
     self.obstacle_radii = [radius * 3 for radius in self.obstacle_radii]
-    self.close_enough = 0.75                     # how close to get to an obstacle
+    self.close_enough = 0.70                     # how close to get to an obstacle
     self.start = start                           # start location
     self.goal = goal                             # goal location
 

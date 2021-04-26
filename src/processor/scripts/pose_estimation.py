@@ -69,7 +69,7 @@ class LM_pose():
                     # compute the angle between reference and observation
                     if np.shape(H) != ():
                         yaw = math.atan2(H[1, 0], H[0, 0])
-                        yaw_list.append(yaw)
+                        yaw_list.append(yaw + content[i])
                         index_list.append(j)
                     else: # place holder
                         yaw_list.append(0)

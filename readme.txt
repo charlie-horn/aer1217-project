@@ -19,4 +19,5 @@
     - take obstacle locations from obstacles.csv and put them in project2021.world
     - Take landmark locations from landmarks.csv and put them in project2021.world
     - run refresh_source.sh to copy files to the aer1217 main repository
+    - run "roslaunch aer1217_ardrone_simulator ardrone_simulator.launch"
     

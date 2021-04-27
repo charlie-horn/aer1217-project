@@ -1,3 +1,14 @@
+# Modified files/directories
+    - aer1217-project/src/publisher/scripts/
+    - aer1217-project/src/processor/scripts/
+    - aer1217-project/src/aer1217_ardrone_simulator/scripts/
+    - refresh_source.sh
+    - project2021.world
+    - obstacles.csv
+    - landmarks.csv
+    - ardrone_simulator.launch
+    - RRT_star.ipynb
+
 # Detect and locate obstacles and landmarks
     - Add "<path>/aer1217-project/src" to $ROS_PACKAGE_PATH
     - Place the bag file under src/publisher/
